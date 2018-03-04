@@ -25,11 +25,11 @@ public class EventListController {
 	@Autowired
 	private EventService eventService;
 	
-	@RequestMapping(value = "/api/v1/geteventbyuserid/{userId}",
+	@RequestMapping(value = "/api/v1/getownereventbyuserid/{userId}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public BaseResponse getEventsByUserId(
+	public BaseResponse getEventsByOwnerId(
 			@PathVariable("userId") String userId) {
 
 		BaseResponse response = new BaseResponse();
@@ -42,7 +42,43 @@ public class EventListController {
 			try {
 
 				EventListResponse eventListResponse = new EventListResponse();
-				List<EventData> eventDataList = eventService.getEventDataByUserId(userId);
+				List<EventData> eventDataList = eventService.getEventOwnerBy(userId);
+
+				eventListResponse.addAll(eventDataList);
+
+				response.setData(eventListResponse);
+
+			} catch (PersistenceException e){
+				response.setStatusCode(1000);
+				response.setStatusMessage("DatabaseError");
+			}
+
+		};
+
+		logger.debug("Requested events by user:" + userId);
+
+		return response;
+
+	}
+
+	@RequestMapping(value = "/api/v1/getattendantreventbyuserid/{userId}",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public BaseResponse getEventsByAattendantId(
+			@PathVariable("userId") String userId) {
+
+		BaseResponse response = new BaseResponse();
+
+		if(isValidRequest(userId, response)){
+
+			response.setStatusCode(0);
+			response.setStatusMessage("Todo bien amigo");
+
+			try {
+
+				EventListResponse eventListResponse = new EventListResponse();
+				List<EventData> eventDataList = eventService.getEventAttendantBy(userId);
 
 				eventListResponse.addAll(eventDataList);
 

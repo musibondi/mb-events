@@ -3,25 +3,26 @@ package org.musibondi.events.request;
 import org.musibondi.events.model.EventData;
 import org.musibondi.events.model.EventType;
 import org.musibondi.events.model.Tag;
+import org.musibondi.events.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventCreationRequest {
 
-    private String userId;
+    private User owner;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private List<Tag> tags;
     private String playlistId;
     private String type;
 
-    public String getUserId() {
-        return userId;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public LocalDateTime getStartDate() {

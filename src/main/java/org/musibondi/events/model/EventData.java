@@ -1,21 +1,19 @@
 package org.musibondi.events.model;
 
-import org.musibondi.events.service.EventService;
-
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventData {
 
     private String eventId;
-    private String userId;
+    private List<User> ownerList;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private List<Tag> tags;
     private String playlistId;
     protected EventType type;
     protected EventStatus status;
+    private List<User> attendeeList;
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
@@ -23,10 +21,6 @@ public class EventData {
 
     public String getEventId() {
         return eventId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public List<Tag> getTags() {
@@ -53,10 +47,6 @@ public class EventData {
         this.type = type;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
     public LocalDateTime getStartDate() {
         return startDate;
     }
@@ -81,17 +71,20 @@ public class EventData {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "EventData{" +
-                "eventId='" + eventId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", tags=" + tags +
-                ", playlistId='" + playlistId + '\'' +
-                ", type=" + type +
-                ", status=" + status +
-                '}';
+    public List<User> getOwnerList() {
+        return ownerList;
     }
+
+    public void setOwnerList(List<User> ownerList) {
+        this.ownerList = ownerList;
+    }
+
+    public List<User> getAttendeeList() {
+        return attendeeList;
+    }
+
+    public void setAttendeeList(List<User> attendeeList) {
+        this.attendeeList = attendeeList;
+    }
+
 }
